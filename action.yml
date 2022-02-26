@@ -1,0 +1,25 @@
+name: 'Run edgetest'
+description: 'Run edgetest on your Python package'
+inputs:
+  edgetest-flags:  # id of input
+    description: 'Options to pass to edgetest'
+    required: true
+    default: 'World'
+runs:
+  using: "composite"
+  steps:
+    - run: echo Running edgetest with the following options ${{ inputs.edgetest-flags}}.
+      shell: bash
+    - uses: actions/checkout@v2
+    - uses: conda-incubator/setup-miniconda@v2
+      with:
+        auto-update-conda: true
+        python-version: 3.9
+    - name: Install edgetest and edgetest-conda
+      shell: bash -l {0}
+      run: |
+        conda info
+        conda install edgetest edgetest-conda
+        conda list
+#    - run: run.sh
+#      shell: bash
