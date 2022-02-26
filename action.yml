@@ -19,9 +19,11 @@ runs:
       shell: bash -l {0}
       run: |
         conda install edgetest edgetest-conda
-    - run: echo  ${{ pwd }}.
-      shell: bash
+    - name: Check path
+      shell: bash -l {0}
+      run: |
+        pwd
     - name: Run edgetest
       shell: bash -l {0}
       run: |
-        edgetest ${{ inputs.edgetest-flags}}
+        edgetest ${{ inputs.edgetest-flags }}
