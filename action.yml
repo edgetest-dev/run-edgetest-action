@@ -5,8 +5,8 @@ inputs:
     description: 'Options to pass to edgetest'
     required: true
     default: ''
-  base-branch: # branch to base PRs off
-    description: 'Branch to base PRs off'
+  base-branch: # branch to base PR off
+    description: 'Branch to base PR off'
     required: true
     default: 'dev'
 runs:
@@ -32,6 +32,7 @@ runs:
       with:
         branch: edgetest-patch
         base: ${{ inputs.base-branch }}
+        delete-branch: true
         title: Changes by run-edgetest action
         body: Automated changes by [run-edgetest-action](https://github.com/fdosani/run-edgetest-action) GitHub action
         add-paths: |
