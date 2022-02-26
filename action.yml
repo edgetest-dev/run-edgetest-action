@@ -18,8 +18,8 @@ runs:
     - name: Install edgetest and edgetest-conda
       shell: bash -l {0}
       run: |
-        conda info
         conda install edgetest edgetest-conda
-        conda list
-#    - run: run.sh
-#      shell: bash
+    - name: Run edgetest
+      shell: bash -l {0}
+      run: |
+        edgetest ${{ inputs.edgetest-flags}}
