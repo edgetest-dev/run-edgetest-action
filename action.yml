@@ -10,11 +10,11 @@ runs:
   steps:
     - run: echo Running edgetest with the following options ${{ inputs.edgetest-flags}}.
       shell: bash
-    - uses: actions/checkout@v2
     - uses: conda-incubator/setup-miniconda@v2
       with:
         auto-update-conda: true
         python-version: 3.9
+        channels: conda-forge
     - name: Install edgetest and edgetest-conda
       shell: bash -l {0}
       run: |
