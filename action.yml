@@ -4,7 +4,11 @@ inputs:
   edgetest-flags:  # id of input
     description: 'Options to pass to edgetest'
     required: true
-    default: 'World'
+    default: ''
+  base-branch: # branch to base PRs off
+    description: 'Branch to base PRs off'
+    required: true
+    default: 'dev'
 runs:
   using: "composite"
   steps:
@@ -19,11 +23,17 @@ runs:
       shell: bash -l {0}
       run: |
         conda install edgetest edgetest-conda
-    - name: Check path
-      shell: bash -l {0}
-      run: |
-        pwd
     - name: Run edgetest
       shell: bash -l {0}
       run: |
         edgetest ${{ inputs.edgetest-flags }}
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        branch: edgetest-patch
+        base: ${{ inputs.base-branch }}
+        title: Changes by run-edgetest action
+        body: Automated changes by [run-edgetest-action](https://github.com/fdosani/run-edgetest-action) GitHub action
+        add-paths: |
+          requirements.txt
+          setup.cfg
