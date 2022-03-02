@@ -5,7 +5,7 @@ name: Test edgetest action
 
 on:
   push:
-    branches: [dev, main]
+    branches: [dev, main, testing-action]
   pull_request:
     branches: [dev, main]
 
