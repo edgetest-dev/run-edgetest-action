@@ -1,0 +1,31 @@
+# This workflow will install edgetest and  edgetest-conda and run it on the run-edgetest-action
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Test edgetest action
+
+on:
+  push:
+    branches: [dev, main]
+  pull_request:
+    branches: [dev, main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: conda-incubator/setup-miniconda@v2
+      with:
+        auto-update-conda: true
+        python-version: 3.9
+        channels: conda-forge
+    - name: Install edgetest and edgetest-conda
+      shell: bash -l {0}
+      run: |
+        conda install edgetest edgetest-conda
+    - name: Run edgetest action
+      uses: fdosani/run-edgetest-action@${GITHUB_REF##*/}
+        with:
+          edgetest-flags: '-c setup.cfg -r requirements.txt --export'
+          base-branch: 'develop'
+          skip-pr: 'true'
