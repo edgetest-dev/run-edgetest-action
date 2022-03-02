@@ -24,7 +24,7 @@ jobs:
       run: |
         conda install edgetest edgetest-conda
     - name: Run edgetest action
-      uses: fdosani/run-edgetest-action@${{ GITHUB_REF##*/ }}
+      uses: fdosani/run-edgetest-action@dev
         with:
           edgetest-flags: '-c setup.cfg -r requirements.txt --export'
           base-branch: 'develop'
