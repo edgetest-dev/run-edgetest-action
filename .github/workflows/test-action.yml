@@ -16,6 +16,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Get branch name
       uses: nelonoel/branch-name@v1.0.1
+    - run: echo "Using branch: ${{ BRANCH_NAME }}"
     - uses: conda-incubator/setup-miniconda@v2
       with:
         auto-update-conda: true
@@ -26,7 +27,7 @@ jobs:
       run: |
         conda install edgetest edgetest-conda
     - name: Run edgetest action
-      uses: fdosani/run-edgetest-action@${{ BRANCH_NAME }}
+      uses: fdosani/run-edgetest-action
       with:
         edgetest-flags: '-c setup.cfg -r requirements.txt --export'
         base-branch: 'develop'
