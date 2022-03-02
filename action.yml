@@ -33,7 +33,7 @@ runs:
         edgetest ${{ inputs.edgetest-flags }}
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
-      if: ${{ inputs.skip_pr == 'true' }}
+      if: ${{ inputs.skip-pr == 'true' }}
       with:
         branch: edgetest-patch
         base: ${{ inputs.base-branch }}
