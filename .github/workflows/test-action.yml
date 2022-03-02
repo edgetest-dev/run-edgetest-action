@@ -25,7 +25,7 @@ jobs:
         conda install edgetest edgetest-conda
     - name: Run edgetest action
       uses: fdosani/run-edgetest-action@dev
-        with:
-          edgetest-flags: '-c setup.cfg -r requirements.txt --export'
-          base-branch: 'develop'
-          skip-pr: 'true'
+      with:
+        edgetest-flags: '-c setup.cfg -r requirements.txt --export'
+        base-branch: 'develop'
+        skip-pr: 'true'
