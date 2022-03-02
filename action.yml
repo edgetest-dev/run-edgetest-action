@@ -31,8 +31,8 @@ runs:
       run: |
         edgetest ${{ inputs.edgetest-flags }}
     - name: Create Pull Request
+      if: ${{ inputs.skip-pr == 'false' }}
       uses: peter-evans/create-pull-request@v3
-      if: inputs.skip-pr == 'true'
       with:
         branch: edgetest-patch
         base: ${{ inputs.base-branch }}
