@@ -12,9 +12,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: test/toy_package/
     steps:
     - uses: actions/checkout@v2
     - uses: conda-incubator/setup-miniconda@v2
@@ -25,6 +22,7 @@ jobs:
     - name: Install edgetest and edgetest-conda
       run: conda install edgetest edgetest-conda
     - name: Run edgetest action
+      working-directory: test/toy_package/
       uses: ./
       with:
         edgetest-flags: '--config=tests/toy_package/setup.cfg'
