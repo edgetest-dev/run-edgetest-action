@@ -1,5 +1,7 @@
 # run-edgetest-action
 
+![example workflow](https://github.com/fdosani/run-edgetest-action/actions/workflows/test-action.yml/badge.svg)
+
 The run edgetest action lets you run [edgetest](https://github.com/capitalone/edgetest) against
 your Python libray. It will loop through your project's dependencies, and check if your project is compatible with the 
 latest version of each dependency.
