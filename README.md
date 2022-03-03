@@ -53,11 +53,11 @@ jobs:
 Options
 -------
 
-| option         | desc                                                                                                    | default | examples                                    |
-|----------------|---------------------------------------------------------------------------------------------------------|---------|---------------------------------------------|
-| edgetest-flags | options to pass to the edgetest call. Everything after edgetest <>                                      | ""      | '-c setup.cfg -r requirements.txt --export' |
-| base-branch    | the branch which you want to PR against if there are changes. This is typically your development branch | 'dev'   | 'develop'                                   |
-| skip-pr        | skips the action summiting a PR if there are any changes.                                               |         | 'true' or 'false'                           |
+| option           | desc                                                                                                     | default | examples                                       |
+|------------------|----------------------------------------------------------------------------------------------------------|---------|------------------------------------------------|
+| `edgetest-flags` | options to pass to the `edgetest` call. Everything after `edgetest ....`                                 | `""`    | `'-c setup.cfg -r requirements.txt --export' ` |
+| `base-branch`    | the branch which you want to PR against if there are changes. This is typically your development branch  | `'dev'` | `'develop'  `                                  |
+| `skip-pr`        | skips the action summiting a PR if there are any changes.                                                |         | `'true'` or `'false'`                          |
 
 
 
