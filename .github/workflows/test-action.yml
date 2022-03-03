@@ -23,7 +23,6 @@ jobs:
       run: conda install edgetest edgetest-conda
     - name: Run edgetest action
       uses: ./
-      working-directory: ./tests/toy_package/
       with:
         edgetest-flags: '--config=setup.cfg'
         base-branch: 'develop'
