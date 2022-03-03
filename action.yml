@@ -9,6 +9,9 @@ inputs:
     description: 'Branch to base PR off'
     required: true
     default: 'dev'
+  skip-pr: # skip PR creation
+    description: 'Skip submitting a PR if there are changes (boolean)'
+    required: true
 runs:
   using: "composite"
   steps:
@@ -28,6 +31,7 @@ runs:
       run: |
         edgetest ${{ inputs.edgetest-flags }}
     - name: Create Pull Request
+      if: ${{ inputs.skip-pr == 'false' }}
       uses: peter-evans/create-pull-request@v3
       with:
         branch: edgetest-patch
