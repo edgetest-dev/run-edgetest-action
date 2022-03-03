@@ -26,6 +26,6 @@ jobs:
     - name: Run edgetest action
       uses: ./
       with:
-        edgetest-flags: '-c setup.cfg -r requirements.txt --export'
+        edgetest-flags: '--config=tests/toy_package/setup.cfg'
         base-branch: 'develop'
         skip-pr: 'true'
