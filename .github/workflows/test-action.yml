@@ -13,7 +13,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     defaults:
-      working-directory: ./test/toy_package/
+      run:
+        working-directory: ./test/toy_package/
     steps:
     - uses: actions/checkout@v2
     - uses: conda-incubator/setup-miniconda@v2
