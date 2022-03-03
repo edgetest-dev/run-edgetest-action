@@ -25,5 +25,5 @@ jobs:
       uses: ./
       with:
         edgetest-flags: '--config=setup.cfg'
-        base-branch: 'develop'
+        base-branch: 'dev'
         skip-pr: 'true'
