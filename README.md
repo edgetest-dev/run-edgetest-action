@@ -69,6 +69,13 @@ Uses:
  - [peter-evans/create-pull-request@v3](https://github.com/peter-evans/create-pull-request)
 
 
+Contributing
+------------
+
+See our [developer documentation](CONTRIBUTING.md).
+
+
+
 License
 -------
 MIT
