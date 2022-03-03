@@ -23,7 +23,8 @@ jobs:
         python-version: 3.9
         channels: conda-forge
     - name: Install edgetest and edgetest-conda
-      run: ./conda install edgetest edgetest-conda
+      working-directory: ./
+      run: conda install edgetest edgetest-conda
     - name: Run edgetest action
       uses: ./
       with:
