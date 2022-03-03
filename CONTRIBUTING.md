@@ -27,7 +27,9 @@ new commit. It will also make it much easier to back out changes if something br
 
 ``main`` is where official releases will go. Each release on ``main`` should
 be tagged properly to denote a "version" that will have the corresponding artifact
-in the GitHub Marketplace. 
+in the GitHub Marketplace.
+
+Before each release the `README.md` and `VERSION` file should be updated to reflect the latest version.
 
 
 TLDR;
@@ -35,10 +37,10 @@ TLDR;
 
 * Each feature should have its own branch.
 * Each feature branch should be squash merged into ``dev``
-* Before a release, bump the version using ``bumpver``.
+* Before a release, bump the version in `README.md` and `VERSION`.
 * Merge  ``dev`` into ``main`` via a regular "merge commits"
 * tag and publish a new release
 
 
 
->    ``main``, ``dev``, and ``gh-pages`` should be protected in the GitHub UI, so they aren't accidentally deleted.
+>    ``main``, and ``dev`` should be protected in the GitHub UI, so they aren't accidentally deleted.
