@@ -12,9 +12,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: test/toy_package/
     steps:
     - uses: actions/checkout@v2
     - uses: conda-incubator/setup-miniconda@v2
@@ -23,11 +20,11 @@ jobs:
         python-version: 3.9
         channels: conda-forge
     - name: Install edgetest and edgetest-conda
-      working-directory: ./
       run: conda install edgetest edgetest-conda
     - name: Run edgetest action
       uses: ./
+      working-directory: ./tests/toy_package/
       with:
-        edgetest-flags: '--config=tests/toy_package/setup.cfg'
+        edgetest-flags: '--config=setup.cfg'
         base-branch: 'develop'
         skip-pr: 'true'
