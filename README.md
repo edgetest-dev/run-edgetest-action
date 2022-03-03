@@ -38,6 +38,7 @@ jobs:
         with:
           edgetest-flags: '-c setup.cfg -r requirements.txt --export'
           base-branch: 'develop'
+          skip-pr: 'false'
 ```
 
 - Typically, you will want to run the action on some cron schedule as its own workflow
