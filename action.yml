@@ -1,0 +1,44 @@
+name: 'Run edgetest'
+description: 'Run edgetest on your Python package'
+inputs:
+  edgetest-flags:  # id of input
+    description: 'Options to pass to edgetest'
+    required: true
+    default: ''
+  base-branch: # branch to base PR off
+    description: 'Branch to base PR off'
+    required: true
+    default: 'dev'
+  skip-pr: # skip PR creation
+    description: 'Skip submitting a PR if there are changes (boolean)'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - run: echo Running edgetest with the following options ${{ inputs.edgetest-flags}}.
+      shell: bash
+    - uses: conda-incubator/setup-miniconda@v2
+      with:
+        auto-update-conda: true
+        python-version: 3.9
+        channels: conda-forge
+    - name: Install edgetest and edgetest-conda
+      shell: bash -l {0}
+      run: |
+        conda install edgetest edgetest-conda
+    - name: Run edgetest
+      shell: bash -l {0}
+      run: |
+        edgetest ${{ inputs.edgetest-flags }}
+    - name: Create Pull Request
+      if: ${{ inputs.skip-pr == 'false' }}
+      uses: peter-evans/create-pull-request@v3
+      with:
+        branch: edgetest-patch
+        base: ${{ inputs.base-branch }}
+        delete-branch: true
+        title: Changes by run-edgetest action
+        body: Automated changes by [run-edgetest-action](https://github.com/fdosani/run-edgetest-action) GitHub action
+        add-paths: |
+          requirements.txt
+          setup.cfg
