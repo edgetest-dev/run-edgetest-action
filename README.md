@@ -10,7 +10,7 @@ The action assumes the following:
 
 - Your repo is already configured to use `edgetest`.
   - eg: you have a section in your `setup.cfg` for `edgetest`
-- runs on `ubuntu-latest`, Python `3.9.x`, and the latest `edgetest` and `edgetest-conda`
+- runs on `ubuntu-latest`, Python `3.9.x`, and the latest `edgetest`, `edgetest-conda`, and `edgetest-pip-tools`
 - any external setup for your tests to pass outside the command passed to edgetest is done
   before the call.
 
@@ -36,7 +36,7 @@ jobs:
           cp tests/data/.locopyrc ~/.locopyrc
           cp tests/data/.locopy-sfrc ~/.locopy-sfrc
       - id: run-edgetest
-        uses: fdosani/run-edgetest-action@v1
+        uses: fdosani/run-edgetest-action@v1.1
         with:
           edgetest-flags: '-c setup.cfg -r requirements.txt --export'
           base-branch: 'develop'
