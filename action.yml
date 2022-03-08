@@ -22,10 +22,10 @@ runs:
         auto-update-conda: true
         python-version: 3.9
         channels: conda-forge
-    - name: Install edgetest and edgetest-conda
+    - name: Install edgetest edgetest-conda and edgetest-pip-tools
       shell: bash -l {0}
       run: |
-        conda install edgetest edgetest-conda
+        conda install edgetest edgetest-conda edgetest-pip-tools
     - name: Run edgetest
       shell: bash -l {0}
       run: |
