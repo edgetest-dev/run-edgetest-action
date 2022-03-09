@@ -38,6 +38,7 @@ runs:
         base: ${{ inputs.base-branch }}
         delete-branch: true
         title: Changes by run-edgetest action
+        commit-message: '[edgetest] automated change'
         body: Automated changes by [run-edgetest-action](https://github.com/fdosani/run-edgetest-action) GitHub action
         add-paths: |
           requirements.txt
