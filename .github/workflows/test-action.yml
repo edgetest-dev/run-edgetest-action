@@ -24,6 +24,6 @@ jobs:
     - name: Run edgetest action
       uses: ./
       with:
-        edgetest-flags: '--config=setup.cfg'
+        edgetest-flags: '--config=setup.cfg --export'
         base-branch: 'dev'
         skip-pr: 'true'
