@@ -41,6 +41,7 @@ jobs:
           edgetest-flags: '-c setup.cfg -r requirements.txt --export'
           base-branch: 'develop'
           skip-pr: 'false'
+          python-version: 3.10
 ```
 
 - Typically, you will want to run the action on some cron schedule as its own workflow
@@ -55,11 +56,12 @@ jobs:
 Options
 -------
 
-| option           | desc                                                                                                     | default | examples                                       |
-|------------------|----------------------------------------------------------------------------------------------------------|---------|------------------------------------------------|
-| `edgetest-flags` | options to pass to the `edgetest` call. Everything after `edgetest ....`                                 | `""`    | `'-c setup.cfg -r requirements.txt --export' ` |
-| `base-branch`    | the branch which you want to PR against if there are changes. This is typically your development branch  | `'dev'` | `'develop'  `                                  |
-| `skip-pr`        | skips the action summiting a PR if there are any changes.                                                |         | `'true'` or `'false'`                          |
+| option           | desc                                                                                                    | default | examples                                       |
+|------------------|---------------------------------------------------------------------------------------------------------|---------|------------------------------------------------|
+| `edgetest-flags` | options to pass to the `edgetest` call. Everything after `edgetest ....`                                | `""`    | `'-c setup.cfg -r requirements.txt --export' ` |
+| `base-branch`    | the branch which you want to PR against if there are changes. This is typically your development branch | `'dev'` | `'develop'  `                                  |
+| `skip-pr`        | skips the action summiting a PR if there are any changes.                                               |         | `'true'` or `'false'`                          |
+| `python-version` | Python version to use use from "setup-miniconda".                                                       | 3.9     | 3.7, 3.8, 3.9, 3.10                            |
 
 
 
