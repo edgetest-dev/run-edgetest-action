@@ -12,12 +12,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ 3.7, 3.8, 3.9 ]
     steps:
     - uses: actions/checkout@v2
     - uses: conda-incubator/setup-miniconda@v2
       with:
         auto-update-conda: true
-        python-version: 3.9
+        python-version: ${{ matrix.python-version }}
         channels: conda-forge
     - name: Install edgetest edgetest-conda and edgetest-pip-tools
       run: conda install edgetest edgetest-conda edgetest-pip-tools
@@ -27,3 +30,4 @@ jobs:
         edgetest-flags: '--config=setup.cfg --export'
         base-branch: 'dev'
         skip-pr: 'true'
+        python-version: ${{ matrix.python-version }}
