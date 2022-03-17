@@ -13,7 +13,7 @@ inputs:
     description: 'Skip submitting a PR if there are changes (boolean)'
     required: true
   python-version: # Python version to use
-    description: 'Python version to use use from "setup-miniconda". Defaults to 3.9. 
+    description: 'Python version to use (from "setup-miniconda"). Defaults to 3.9. 
       See https://anaconda.org/anaconda/python for available "python" versions.'
     default: 3.9
 runs:
