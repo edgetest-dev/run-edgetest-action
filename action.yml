@@ -12,15 +12,19 @@ inputs:
   skip-pr: # skip PR creation
     description: 'Skip submitting a PR if there are changes (boolean)'
     required: true
+  python-version: # Python version to use
+    description: 'Python version to use (from "setup-miniconda"). Defaults to 3.9. 
+      See https://anaconda.org/anaconda/python for available "python" versions.'
+    default: 3.9
 runs:
   using: "composite"
   steps:
-    - run: echo Running edgetest with the following options ${{ inputs.edgetest-flags}}.
+    - run: echo Running edgetest with the following options ${{ inputs.edgetest-flags }}.
       shell: bash
     - uses: conda-incubator/setup-miniconda@v2
       with:
         auto-update-conda: true
-        python-version: 3.9
+        python-version: ${{ inputs.python-version }}
         channels: conda-forge
     - name: Install edgetest edgetest-conda and edgetest-pip-tools
       shell: bash -l {0}
@@ -38,6 +42,7 @@ runs:
         base: ${{ inputs.base-branch }}
         delete-branch: true
         title: Changes by run-edgetest action
+        commit-message: '[edgetest] automated change'
         body: Automated changes by [run-edgetest-action](https://github.com/fdosani/run-edgetest-action) GitHub action
         add-paths: |
           requirements.txt
