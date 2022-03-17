@@ -36,7 +36,7 @@ jobs:
           cp tests/data/.locopyrc ~/.locopyrc
           cp tests/data/.locopy-sfrc ~/.locopy-sfrc
       - id: run-edgetest
-        uses: fdosani/run-edgetest-action@v1.1
+        uses: fdosani/run-edgetest-action@v1.2
         with:
           edgetest-flags: '-c setup.cfg -r requirements.txt --export'
           base-branch: 'develop'
