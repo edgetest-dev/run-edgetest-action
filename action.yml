@@ -47,3 +47,4 @@ runs:
         add-paths: |
           requirements.txt
           setup.cfg
+          pyproject.toml
