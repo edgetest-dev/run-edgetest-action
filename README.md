@@ -36,7 +36,7 @@ jobs:
           cp tests/data/.locopyrc ~/.locopyrc
           cp tests/data/.locopy-sfrc ~/.locopy-sfrc
       - id: run-edgetest
-        uses: edgetest-dev/run-edgetest-action@v1.3
+        uses: edgetest-dev/run-edgetest-action@v1.4
         with:
           edgetest-flags: '-c setup.cfg -r requirements.txt --export'
           base-branch: 'develop'
