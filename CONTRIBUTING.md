@@ -3,7 +3,7 @@
 Contribution guidelines
 -----------------------
 
-Keep an eye on the [issues](https://github.com/fdosani/run-edgetest-action/issues)
+Keep an eye on the [issues](https://github.com/edgetest-dev/run-edgetest-action/issues)
 We are always happy for help, including such things as:
 
 - Bug reports

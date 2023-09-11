@@ -43,7 +43,7 @@ runs:
         delete-branch: true
         title: Changes by run-edgetest action
         commit-message: '[edgetest] automated change'
-        body: Automated changes by [run-edgetest-action](https://github.com/fdosani/run-edgetest-action) GitHub action
+        body: Automated changes by [run-edgetest-action](https://github.com/edgetest-dev/run-edgetest-action) GitHub action
         add-paths: |
           requirements.txt
           setup.cfg
