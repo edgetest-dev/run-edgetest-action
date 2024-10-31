@@ -10,7 +10,7 @@ The action assumes the following:
 
 - Your repo is already configured to use `edgetest`.
   - eg: you have a section in your `setup.cfg` for `edgetest`
-- runs on `ubuntu-latest`, Python `3.9.x`, and the latest `edgetest`, `edgetest-conda`, and `edgetest-pip-tools`
+- runs on `ubuntu-latest`, Python `3.10.x`, and the latest `edgetest`, `edgetest-conda`, and `edgetest-pip-tools`
 - any external setup for your tests to pass outside the command passed to edgetest is done
   before the call.
 
@@ -61,7 +61,7 @@ Options
 | `edgetest-flags` | options to pass to the `edgetest` call. Everything after `edgetest ....`                                | `""`    | `'-c setup.cfg -r requirements.txt --export' ` |
 | `base-branch`    | the branch which you want to PR against if there are changes. This is typically your development branch | `'dev'` | `'develop'  `                                  |
 | `skip-pr`        | skips the action summiting a PR if there are any changes.                                               |         | `'true'` or `'false'`                          |
-| `python-version` | Python version to use (from "setup-miniconda").                                                         | 3.9     | 3.7, 3.8, 3.9, 3.10                            |
+| `python-version` | Python version to use (from "setup-miniconda").                                                         | 3.10    | 3.7, 3.8, 3.9, 3.10                            |
 
 
 
