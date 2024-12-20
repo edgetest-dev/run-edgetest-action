@@ -10,57 +10,11 @@ on:
     branches: [dev, main]
 
 jobs:
-
-  pr-default:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.11"]
-    steps:
-    - uses: actions/checkout@v2
-    - uses: conda-incubator/setup-miniconda@v2
-      with:
-        auto-update-conda: true
-        python-version: ${{ matrix.python-version }}
-        channels: conda-forge
-    - name: Install edgetest edgetest-conda and edgetest-pip-tools
-      run: conda install edgetest edgetest-conda edgetest-pip-tools
-    - name: Run edgetest action
-      uses: ./
-      with:
-        edgetest-flags: '--config=setup.cfg --export'
-        base-branch: 'dev'
-        skip-pr: 'false'
-        python-version: ${{ matrix.python-version }}
-
-  pr-add-path:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.11"]
-    steps:
-    - uses: actions/checkout@v2
-    - uses: conda-incubator/setup-miniconda@v2
-      with:
-        auto-update-conda: true
-        python-version: ${{ matrix.python-version }}
-        channels: conda-forge
-    - name: Install edgetest edgetest-conda and edgetest-pip-tools
-      run: conda install edgetest edgetest-conda edgetest-pip-tools
-    - name: Run edgetest action
-      uses: ./
-      with:
-        edgetest-flags: '--config=setup.cfg --export'
-        base-branch: 'dev'
-        skip-pr: 'false'
-        python-version: ${{ matrix.python-version }}
-        add-paths: 'setup.cfg, requirements.txt'
-
-  no-pr-versions:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.9, "3.10"]
+        python-version: [3.9, "3.10", "3.11", "3.12", "3.13"]
     steps:
     - uses: actions/checkout@v2
     - uses: conda-incubator/setup-miniconda@v2
