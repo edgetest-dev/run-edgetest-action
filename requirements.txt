@@ -4,9 +4,9 @@
 #
 #    pip-compile --output-file=requirements.txt setup.cfg
 #
-numpy==1.22.3
+numpy==2.0.0
     # via pandas
-pandas==1.2.0
+pandas==2.0.0
     # via toy-package (setup.cfg)
 python-dateutil==2.8.2
     # via pandas
