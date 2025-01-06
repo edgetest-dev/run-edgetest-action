@@ -62,7 +62,7 @@ Options
 | `base-branch`    | the branch which you want to PR against if there are changes. This is typically your development branch | `'dev'` | `'develop'  `                                  |
 | `skip-pr`        | skips the action summiting a PR if there are any changes.                                               |         | `'true'` or `'false'`                          |
 | `python-version` | Python version to use (from "setup-miniconda").                                                         | 3.10    | 3.7, 3.8, 3.9, 3.10                            |
-
+| `add-paths`      | A comma separated list of file paths to commit.  (from "peter-evans/create-pull-request").              | `'*'`   | `'requirements.txt, setup.cfg, pyproject.toml'`|
 
 
 Action Dependencies
