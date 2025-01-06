@@ -16,6 +16,11 @@ inputs:
     description: 'Python version to use (from "setup-miniconda"). Defaults to 3.10. 
       See https://anaconda.org/anaconda/python for available "python" versions.'
     default: '3.10'
+  add-paths: # files to include in git commit
+    description: 'A comma separated list of file paths to commit. 
+      Paths should follow gits pathspec syntax. If no paths are specified, 
+      all new and modified files are added.'
+    default: '*'
 runs:
   using: "composite"
   steps:
@@ -45,6 +50,4 @@ runs:
         commit-message: '[edgetest] automated change'
         body: Automated changes by [run-edgetest-action](https://github.com/edgetest-dev/run-edgetest-action) GitHub action
         add-paths: |
-          requirements.txt
-          setup.cfg
-          pyproject.toml
+          ${{ inputs.add-paths }}
