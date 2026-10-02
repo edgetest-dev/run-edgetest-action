@@ -3,15 +3,16 @@ description: 'Run edgetest on your Python package'
 inputs:
   edgetest-flags:  # id of input
     description: 'Options to pass to edgetest'
-    required: true
+    required: false
     default: ''
   base-branch: # branch to base PR off
     description: 'Branch to base PR off'
     required: true
     default: 'dev'
   skip-pr: # skip PR creation
-    description: 'Skip submitting a PR if there are changes (boolean)'
-    required: true
+    description: 'Skip submitting a PR if there are changes. Accepts the strings "true" or "false".'
+    required: false
+    default: 'false'
   python-version: # Python version to use
     description: 'Python version to use (from "setup-miniconda"). Defaults to 3.10. 
       See https://anaconda.org/anaconda/python for available "python" versions.'
@@ -34,13 +35,14 @@ runs:
     - name: Install edgetest edgetest-conda and edgetest-pip-tools
       shell: bash -l {0}
       run: |
-        conda install edgetest edgetest-conda edgetest-pip-tools
+        conda install --yes edgetest edgetest-conda edgetest-pip-tools
     - name: Run edgetest
       shell: bash -l {0}
+      # Word splitting of the flags is intentional: they are passed through as separate arguments.
       run: |
         edgetest ${{ inputs.edgetest-flags }}
     - name: Create Pull Request
-      if: ${{ inputs.skip-pr == 'false' }}
+      if: ${{ fromJSON(inputs.skip-pr) == false }}
       uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1  # v8.1.1
       with:
         branch: edgetest-patch
