@@ -27,8 +27,8 @@ jobs:
     - name: Run edgetest action
       uses: ./
       with:
-        edgetest-flags: '--config=setup.cfg --export'
+        edgetest-flags: '--config=pyproject.toml --export'
         base-branch: 'dev'
         skip-pr: 'true'
         python-version: ${{ matrix.python-version }}
-        add-paths: 'setup.cfg, requirements.txt'
+        add-paths: 'pyproject.toml, requirements.txt'
