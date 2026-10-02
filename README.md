@@ -29,7 +29,7 @@ jobs:
         with:
           ref: dev
       - id: run-edgetest
-        uses: edgetest-dev/run-edgetest-action@v1.7
+        uses: edgetest-dev/run-edgetest-action@v1.8
         with:
           edgetest-flags: '-c pyproject.toml -r requirements.txt --export'
           base-branch: 'dev'
