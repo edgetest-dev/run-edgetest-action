@@ -9,7 +9,7 @@ latest version of each dependency.
 The action assumes the following:
 
 - Your repo is already configured to use `edgetest`.
-  - eg: you have a section in your `setup.cfg` for `edgetest`
+  - eg: you have a section in your `pyproject.toml` for `edgetest`
 - runs on `ubuntu-latest`, Python `3.10.x`, and the latest `edgetest`, `edgetest-conda`, and `edgetest-pip-tools`
 - any external setup for your tests to pass outside the command passed to edgetest is done
   before the call.
@@ -38,7 +38,7 @@ jobs:
       - id: run-edgetest
         uses: edgetest-dev/run-edgetest-action@v1.4
         with:
-          edgetest-flags: '-c setup.cfg -r requirements.txt --export'
+          edgetest-flags: '-c pyproject.toml -r requirements.txt --export'
           base-branch: 'develop'
           skip-pr: 'false'
           python-version: 3.10
@@ -58,7 +58,7 @@ Options
 
 | option           | desc                                                                                                    | default | examples                                       |
 |------------------|---------------------------------------------------------------------------------------------------------|---------|------------------------------------------------|
-| `edgetest-flags` | options to pass to the `edgetest` call. Everything after `edgetest ....`                                | `""`    | `'-c setup.cfg -r requirements.txt --export' ` |
+| `edgetest-flags` | options to pass to the `edgetest` call. Everything after `edgetest ....`                                | `""`    | `'-c pyproject.toml -r requirements.txt --export' ` |
 | `base-branch`    | the branch which you want to PR against if there are changes. This is typically your development branch | `'dev'` | `'develop'  `                                  |
 | `skip-pr`        | skips the action summiting a PR if there are any changes.                                               |         | `'true'` or `'false'`                          |
 | `python-version` | Python version to use (from "setup-miniconda").                                                         | 3.10    | 3.7, 3.8, 3.9, 3.10                            |
