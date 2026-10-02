@@ -3,15 +3,16 @@ description: 'Run edgetest on your Python package'
 inputs:
   edgetest-flags:  # id of input
     description: 'Options to pass to edgetest'
-    required: true
+    required: false
     default: ''
   base-branch: # branch to base PR off
     description: 'Branch to base PR off'
     required: true
     default: 'dev'
   skip-pr: # skip PR creation
-    description: 'Skip submitting a PR if there are changes (boolean)'
-    required: true
+    description: 'Skip submitting a PR if there are changes. Accepts the strings "true" or "false".'
+    required: false
+    default: 'false'
   python-version: # Python version to use
     description: 'Python version to use (from "setup-miniconda"). Defaults to 3.10. 
       See https://anaconda.org/anaconda/python for available "python" versions.'
@@ -26,7 +27,7 @@ runs:
   steps:
     - run: echo Running edgetest with the following options ${{ inputs.edgetest-flags }}.
       shell: bash
-    - uses: conda-incubator/setup-miniconda@fc2d68f6413eb2d87b895e92f8584b5b94a10167  # v3.3.0
+    - uses: conda-incubator/setup-miniconda@be893c923ea9cf1cf7cd510fbdde27c7e18cbdcb  # v4.1.0
       with:
         auto-update-conda: true
         python-version: ${{ inputs.python-version }}
@@ -34,14 +35,15 @@ runs:
     - name: Install edgetest edgetest-conda and edgetest-pip-tools
       shell: bash -l {0}
       run: |
-        conda install edgetest edgetest-conda edgetest-pip-tools
+        conda install --yes edgetest edgetest-conda edgetest-pip-tools
     - name: Run edgetest
       shell: bash -l {0}
+      # Word splitting of the flags is intentional: they are passed through as separate arguments.
       run: |
         edgetest ${{ inputs.edgetest-flags }}
     - name: Create Pull Request
-      if: ${{ inputs.skip-pr == 'false' }}
-      uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676  # v7.0.11
+      if: ${{ fromJSON(inputs.skip-pr) == false }}
+      uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1  # v8.1.1
       with:
         branch: edgetest-patch
         base: ${{ inputs.base-branch }}
