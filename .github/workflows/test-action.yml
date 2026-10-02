@@ -5,9 +5,9 @@ name: Test edgetest action
 
 on:
   push:
-    branches: [dev, main]
+    branches: [main]
   pull_request:
-    branches: [dev, main]
+    branches: [main]
 
 jobs:
   build:
@@ -30,7 +30,7 @@ jobs:
       uses: ./
       with:
         edgetest-flags: '--config=pyproject.toml --export'
-        base-branch: 'dev'
+        base-branch: 'main'
         skip-pr: 'true'
         python-version: ${{ matrix.python-version }}
         add-paths: 'pyproject.toml, requirements.txt'

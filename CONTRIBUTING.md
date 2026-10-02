@@ -19,28 +19,32 @@ We are always happy for help, including such things as:
 Release guidelines
 ------------------
 
-``dev`` is the default branch where most people will work with day to day.
-All features must be squash merged into this branch. The reason we squash merge
-is to prevent the dev branch from being polluted with endless commit messages
-when people are developing. Squashing collapses all the commits into one single
-new commit. It will also make it much easier to back out changes if something breaks.
+``main`` is the single long-lived branch. All work lands on it via pull requests
+from short-lived feature branches.
 
-``main`` is where official releases will go. Each release on ``main`` should
-be tagged properly to denote a "version" that will have the corresponding artifact
-in the GitHub Marketplace.
+We squash merge every PR into ``main``. The reason is to prevent the branch
+from being polluted with endless commit messages when people are developing.
+Squashing collapses all the commits into one single new commit. It will also
+make it much easier to back out changes if something breaks.
 
-Before each release the `README.md` and `VERSION` file should be updated to reflect the latest version.
+Each release on ``main`` should be tagged properly to denote a "version" that
+will have the corresponding artifact in the GitHub Marketplace.
 
+To cut a release:
+
+1. Run the **Bump version** workflow (workflow_dispatch) with the desired
+   bump type. It opens a PR that updates ``VERSION`` and the README pin.
+2. Squash merge that PR once CI is green.
+3. Tag the merge commit on ``main`` as ``vX.Y`` and publish a GitHub release.
 
 TLDR;
 -----
 
 * Each feature should have its own branch.
-* Each feature branch should be squash merged into ``dev``
-* Before a release, bump the version in `README.md` and `VERSION`.
-* Merge  ``dev`` into ``main`` via a regular "merge commits"
-* tag and publish a new release
+* Each feature branch should be squash merged into ``main``
+* To release: run the bump-version workflow, squash merge, then tag and
+  publish a new release.
 
 
-
->    ``main``, and ``dev`` should be protected in the GitHub UI, so they aren't accidentally deleted.
+>    ``main`` should be protected in the GitHub UI, so it isn't accidentally
+>    deleted.
