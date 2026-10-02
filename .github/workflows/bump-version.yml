@@ -1,0 +1,124 @@
+# This workflow manually bumps the action version and opens a PR with the change.
+# This repo uses a simple vX.Y scheme tracked in the VERSION file; the README usage
+# example pin is updated to the same version.
+#   - "minor" (default) increments the second number, e.g. v1.7 -> v1.8
+#   - "major" increments the first number and resets the second, e.g. v1.7 -> v2.0
+#   - custom_version sets an exact version (must match X.Y), overrides bump_type
+# The release itself (merge ``dev`` into ``main``, tag, publish) stays manual
+# per CONTRIBUTING.md.
+name: "Bump version"
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        description: "How to bump (ignored if custom_version is set)"
+        type: choice
+        options:
+          - minor
+          - major
+        default: minor
+      custom_version:
+        description: "Exact version to set (must match X.Y). Overrides bump_type."
+        type: string
+        default: ""
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+
+      - name: Bump version and push branch
+        id: bump
+        env:
+          BUMP_TYPE: ${{ inputs.bump_type }}
+          CUSTOM_VERSION: ${{ inputs.custom_version }}
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          OLD_VERSION=$(tr -d '[:space:]' < VERSION)
+
+          if [[ -n "$CUSTOM_VERSION" ]]; then
+            NEW_VERSION="${CUSTOM_VERSION#v}"
+          else
+            CURRENT="${OLD_VERSION#v}"
+            MAJOR="${CURRENT%%.*}"
+            MINOR="${CURRENT##*.}"
+            if [[ "$BUMP_TYPE" == "major" ]]; then
+              NEW_VERSION="$((MAJOR + 1)).0"
+            else
+              NEW_VERSION="${MAJOR}.$((MINOR + 1))"
+            fi
+          fi
+
+          if [[ ! "$NEW_VERSION" =~ ^[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid version: $NEW_VERSION (must match X.Y)" >&2
+            exit 1
+          fi
+
+          if [[ "v${NEW_VERSION}" == "$OLD_VERSION" ]]; then
+            echo "No version change (still $OLD_VERSION); nothing to do." >&2
+            exit 1
+          fi
+
+          BRANCH_NAME="bump-version-${NEW_VERSION}"
+
+          echo "v${NEW_VERSION}" > VERSION
+          sed -i -E "s|edgetest-dev/run-edgetest-action@v[0-9]+(\.[0-9]+)*|edgetest-dev/run-edgetest-action@v${NEW_VERSION}|g" README.md
+
+          git switch -c "$BRANCH_NAME"
+          git add VERSION README.md
+          git commit -m "chore: bump version to v${NEW_VERSION}"
+          git push -u origin "$BRANCH_NAME"
+
+          echo "old_version=$OLD_VERSION" >> "$GITHUB_OUTPUT"
+          echo "new_version=v${NEW_VERSION}" >> "$GITHUB_OUTPUT"
+          echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Create pull request
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
+        env:
+          BRANCH_NAME: ${{ steps.bump.outputs.branch_name }}
+          OLD_VERSION: ${{ steps.bump.outputs.old_version }}
+          NEW_VERSION: ${{ steps.bump.outputs.new_version }}
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const head = `${owner}:${process.env.BRANCH_NAME}`;
+            const base = context.payload.repository.default_branch;
+            const newVersion = process.env.NEW_VERSION;
+            const oldVersion = process.env.OLD_VERSION;
+
+            const title = `chore: bump version to ${newVersion}`;
+            const body = `Bumps version from \`${oldVersion}\` to \`${newVersion}\`.\n\nMerging this PR updates \`VERSION\` and the README usage pin. The release itself (merge \`dev\` into \`main\`, tag, publish) stays manual per CONTRIBUTING.md.`;
+
+            const existing = await github.rest.pulls.list({
+              owner,
+              repo,
+              state: 'open',
+              head,
+              base
+            });
+
+            if (existing.data.length > 0) {
+              return;
+            }
+
+            await github.rest.pulls.create({
+              owner,
+              repo,
+              title,
+              head,
+              base,
+              body
+            });
