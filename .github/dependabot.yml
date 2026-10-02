@@ -1,0 +1,16 @@
+version: 2
+updates:
+  # Keep the SHA-pinned GitHub Actions in action.yml and the workflows current.
+  # Bump PRs run through the existing test-action.yml matrix before merging.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "America/Toronto"
+    target-branch: "dev"
+    commit-message:
+      prefix: "ci"
+    labels:
+      - "dependencies"
