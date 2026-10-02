@@ -61,7 +61,7 @@ Options
 | `edgetest-flags` | options to pass to the `edgetest` call. Everything after `edgetest ....`                                | `""`    | `'-c pyproject.toml -r requirements.txt --export' ` |
 | `base-branch`    | the branch which you want to PR against if there are changes. This is typically your development branch | `'dev'` | `'develop'  `                                  |
 | `skip-pr`        | skips the action summiting a PR if there are any changes.                                               |         | `'true'` or `'false'`                          |
-| `python-version` | Python version to use (from "setup-miniconda").                                                         | 3.10    | 3.7, 3.8, 3.9, 3.10                            |
+| `python-version` | Python version to use (from "setup-miniconda"). Must be 3.10 or newer (`edgetest` requires it).         | 3.10    | 3.10, 3.11, 3.12                               |
 | `add-paths`      | A comma separated list of file paths to commit.  (from "peter-evans/create-pull-request").              | `'*'`   | `'requirements.txt, setup.cfg, pyproject.toml'`|
 
 
