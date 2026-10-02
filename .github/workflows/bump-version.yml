@@ -4,8 +4,7 @@
 #   - "minor" (default) increments the second number, e.g. v1.7 -> v1.8
 #   - "major" increments the first number and resets the second, e.g. v1.7 -> v2.0
 #   - custom_version sets an exact version (must match X.Y), overrides bump_type
-# The release itself (merge ``dev`` into ``main``, tag, publish) stays manual
-# per CONTRIBUTING.md.
+# The release itself (tag ``main`` and publish) stays manual per CONTRIBUTING.md.
 name: "Bump version"
 
 on:
@@ -100,7 +99,7 @@ jobs:
             const oldVersion = process.env.OLD_VERSION;
 
             const title = `chore: bump version to ${newVersion}`;
-            const body = `Bumps version from \`${oldVersion}\` to \`${newVersion}\`.\n\nMerging this PR updates \`VERSION\` and the README usage pin. The release itself (merge \`dev\` into \`main\`, tag, publish) stays manual per CONTRIBUTING.md.`;
+            const body = `Bumps version from \`${oldVersion}\` to \`${newVersion}\`.\n\nMerging this PR updates \`VERSION\` and the README usage pin. The release itself (tag \`main\` and publish) stays manual per CONTRIBUTING.md.`;
 
             const existing = await github.rest.pulls.list({
               owner,
